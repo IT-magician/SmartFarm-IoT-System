@@ -1,0 +1,166 @@
+<%
+    dim fname
+    dim FileName
+    
+    FileName=Request.QueryString("attribute1")
+    If FileName = "" Then
+        'FileName = Date() & "mp4" 'YYYY-MM-DD''
+        FileName = "test/big.mp4"
+    End If
+    dim videoSRC
+    videoSRC = "http://220.69.240.82:8080/Video_Streaming_Server/" & FileName
+    'Response.Write videoSRC'
+
+    Set fs = Server.CreateObject("Scripting.FileSystemObject")
+    Set folderObj = fs.GetFolder(Server.MapPath("/videos"))
+    Set subfolder = folderObj.SubFolders
+%>
+
+
+<!DOCTYPE html>
+<html lang="kr">
+
+<!-- src : https://codepen.io/creme/pen/jOOZgEO -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sticky Video</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="intro">
+        <div class="popout-video">
+            <%
+                Response.Write "<video src=""" & videoSRC & """ playsinline controls class=""intro-video"" preload=""auto"" type=""video/mp4"" autoplay></video>"
+            %>
+            <div class="popout-video__controls">
+                <div class="close-video"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <span>scroll down</span>
+        <hr>
+        <h1>Video Record History</h1>
+
+
+        <ul id="compositions-list" class="pure-tree main-tree">
+            <li>
+                <input type="checkbox" id="trigger-views" checked="checked">
+                <label for="trigger-views">views</label>
+                <ul class="pure-tree">
+                    <li>
+
+                        <%
+                            For Each folder in subfolder
+
+                                If folder.name <> "test" Then
+                                    Count = Count + 1
+                                    
+                                    Response.Write "<input type=""checkbox"" id=""trigger-" & Count & """>"
+                                    Response.Write "<label for=""trigger-" & Count & """>" & folder.name & "</label>"
+                                    Response.Write "<ul class=""pure-tree"">"
+
+                                    Set folderObj = fs.GetFolder(folder.Path)
+                                    Set files = folderObj.Files 
+                                    
+                                    For Each file in files
+                                        Response.Write "<li class=""pure-tree_link""><a onclick=""submit('" & folder.name & "/" & file.name & "')"" title=""index.jade"" target=""_blank"">" & file.name & "</a></li>"
+                                    Next
+                                    
+                                    Response.Write "</ul>"
+                                End If
+                                
+                            Next
+                        %>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</body>
+<script>
+
+        function submit(fileName) {
+            var strPageName = window.location.href.split("/");
+            strPageName = strPageName[strPageName.length-1].split("?")[0];
+
+            var form = document.createElement("form");
+            form.setAttribute("charset", "UTF-8");
+            form.setAttribute("method", "Get");  //Get 방식
+            form.setAttribute("action", strPageName); //요청 보낼 주소
+
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "attribute1");
+            hiddenField.setAttribute("value", fileName);
+            form.appendChild(hiddenField);
+
+            /*hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "attribute2");
+            hiddenField.setAttribute("value", "value2");
+            form.appendChild(hiddenField);*/
+
+
+
+            document.body.appendChild(form);
+            form.submit();
+
+            //alert("Submitted");
+        }
+
+    $(document).ready(function () {
+
+    });
+    console.clear();
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const introContainer = document.querySelector('.intro');
+        const videoContainer = introContainer.querySelector('.popout-video');
+        const video = videoContainer.querySelector('video');
+        let videoHeight = videoContainer.offsetHeight;
+
+        const closeVideoBtn = document.querySelector('.close-video');
+
+        let popOut = true;
+
+        introContainer.style.height = `${videoHeight}px`;
+
+        window.addEventListener('scroll', function (e) {
+            if (window.scrollY > videoHeight) {
+                // only pop out the video if it wasnt closed before
+                if (popOut) {
+                    videoContainer.classList.add('popout-video--popout');
+                    // set video container off the screen for the slide in animation
+                    videoContainer.style.top = `-${videoHeight}px`;
+                }
+            } else {
+                videoContainer.classList.remove('popout-video--popout');
+                videoContainer.style.top = `0px`;
+                popOut = true;
+            }
+        });
+
+        // close the video and prevent from opening again on scrolling + pause the video
+        closeVideoBtn.addEventListener('click', function () {
+            videoContainer.classList.remove('popout-video--popout');
+            video.pause();
+            popOut = false;
+        });
+
+        window.addEventListener('resize', function () {
+            videoHeight = videoContainer.offsetHeight;
+            introContainer.style.height = `${videoHeight}px`;
+        });
+    });
+</script>
+
+</html>

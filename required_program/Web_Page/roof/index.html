@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/websocket_common_part.js" charset="utf-8"></script>
+    <title>Smart Farm Roof PDLC Panel Control</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <label>
+        <input type="checkbox" id="switch" checked onclick="checkbox_manager(event)" unchecked>
+        <span class="check"></span>
+        <div for="toggle1" class="text" id="text1" on="천장 밝기 설정상태 :     Dark" off="천장 밝기 설정상태 : Bright"> </div>
+        <!--<div for="toggle1" class="text" id="text1" on="천장 설정상태 :     Block" off="천장 밝기 설정상태 : Transparent"> </div>-->
+    </label>
+    <script>
+        var WebSocket_Buffer1 = new Uint8Array(2);
+        var timerID;
+        onConnect_CallbackFunction = function () {
+            timerID = setInterval(function () {
+                ws.send("Current Status");
+            }, Interval_Check_Time);
+        }
+        onStringMessage_CallbackFunction = function () {
+            //alert(onStringMessage);
+        }
+        onClose_CallbackFunction = function () {
+            clearInterval(timerID);
+            //alert("타이머를 종료합니다");
+        }
+        $(document).ready(function () {
+            //if (!isWebSocketConnected) {
+            WebSocket_Connect_for_position();
+            //}
+
+        });
+        reader.addEventListener("loadend", function (e) {
+            // if the server sent binary array. (function : Websocket_onMessage(e))
+            var recvBuf = new Uint8Array(e.srcElement.result); //console.log(recvBuf);
+
+            if (recvBuf[0] == 0) {
+                var CurrentPDLCValue = recvBuf[2];
+                recvBuf = new Uint8Array(2);
+                recvBuf[0] = 2; // Set PDLC Code
+                recvBuf[1] = CurrentPDLCValue;
+
+                //console.log("'Code : 0' 메세지가 수신되었습니다.")
+            }
+
+            switch (recvBuf[0]) {
+                case 2: // PDLC
+                    if (recvBuf[1]) {
+                        $("#switch").prop("checked", true);
+                    }
+                    else {
+                        $("#switch").prop("checked", false);
+                    }
+                    break;
+            }
+
+        });
+
+        function checkbox_manager(event) {
+            recvBuf = new Uint8Array(2);
+                recvBuf[0] = 2;
+            if ($("#switch").is(":checked")) { // close the wire of pdlc line
+                $("#switch").prop("checked", false);
+                recvBuf[1] = 1;
+            }
+            else { // open the wire of pdlc line
+                $("#switch").prop("checked", true);
+                recvBuf[1] = 0;
+            }
+            ws.send(recvBuf);
+        }
+    </script>
+</body>
+
+</html>

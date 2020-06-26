@@ -1,0 +1,186 @@
+<html>
+<!-- src : https://codepen.io/creme/pen/jOOZgEO -->
+
+<head>
+    <title>Sticky Video</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+<style>
+    .video-js{
+        visibility: hidden;
+    }
+</style>
+
+        
+  <link href="https://vjs.zencdn.net/7.7.6/video-js.css" rel="stylesheet" />
+
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+</head>
+
+<body>
+    <div class="intro">
+        <div class="popout-video">
+            <video class="intro-video"
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            data-setup="{}">
+
+            <source type="application/x-mpegURL" src="http://220.69.240.82:5000/hls/test.m3u8">
+
+
+            </video>
+            <div class="popout-video__controls">
+                <div class="close-video"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="content">
+        <h2>Collapsible Directory List</h2>
+    
+        <div class="box">
+            <ul class="directory-list">
+                <li>assets
+                    <ul>
+                        <li>css
+                            <ul>
+                                <li>typography.css</li>
+                                <li>layout.css</li>
+                                <li>modules.css</li>
+                                <li>states.css</li>
+                                <li>theme.css</li>
+                            </ul>
+                        </li>
+                        <li>js
+                            <ul>
+                                <li>custom.js</li>
+                                <li>jquery.js</li>
+                            </ul>
+                        </li>
+                        <li>images
+                            <ul>
+                                <li>logo.svg</li>
+                                <li>arrow-sprite.svg</li>
+                                <li>social-sprite.svg</li>
+                            </ul>
+                        </li>
+                        <li>functions.php</li>
+                    </ul>
+                </li>
+                <li>templates
+                    <ul>
+                        <li>pages
+                            <ul>
+                                <li>about.tpl</li>
+                                <li>pricing.tpl</li>
+                                <li>contact.tpl</li>
+                                <li>home.tpl</li>
+                                <li>features.tpl</li>
+                            </ul>
+                        </li>
+                        <li>header.tpl</li>
+                        <li>menu.tpl</li>
+                        <li>footer.tpl</li>
+                    </ul>
+                </li>
+                <li>index.php</li>
+                <li>style.css</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+$(document).ready(function () {
+  
+  //  setWaterDisplay(90);//vjs-big-play-button
+  $(".vjs-big-play-button").trigger("click");
+});
+</script>
+<script src="https://vjs.zencdn.net/7.7.6/video.js"></script>
+<script>
+    $(document).ready(function () {
+
+    });
+
+
+    // get all folders in our .directory-list
+    var allFolders = $(".directory-list li > ul");
+    allFolders.each(function () {
+
+        // add the folder class to the parent <li>
+        var folderAndName = $(this).parent();
+        folderAndName.addClass("folder");
+
+        // backup this inner <ul>
+        var backupOfThisFolder = $(this);
+        // then delete it
+        $(this).remove();
+        // add an <a> tag to whats left ie. the folder name
+        folderAndName.wrapInner("<a href='#' />");
+        // then put the inner <ul> back
+        folderAndName.append(backupOfThisFolder);
+
+        // now add a slideToggle to the <a> we just added
+        folderAndName.find("a").click(function (e) {
+            $(this).siblings("ul").slideToggle("slow");
+            e.preventDefault();
+        });
+
+    });
+
+
+
+    console.clear();
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const introContainer = document.querySelector('.intro');
+        const videoContainer = introContainer.querySelector('.popout-video');
+        const video = videoContainer.querySelector('video');
+        let videoHeight = videoContainer.offsetHeight;
+
+        const closeVideoBtn = document.querySelector('.close-video');
+
+        let popOut = true;
+
+        introContainer.style.height = `${videoHeight}px`;
+
+        window.addEventListener('scroll', function (e) {
+            if (window.scrollY > videoHeight) {
+                // only pop out the video if it wasnt closed before
+                if (popOut) {
+                    videoContainer.classList.add('popout-video--popout');
+                    // set video container off the screen for the slide in animation
+                    videoContainer.style.top = `-${videoHeight}px`;
+                }
+            } else {
+                videoContainer.classList.remove('popout-video--popout');
+                videoContainer.style.top = `0px`;
+                popOut = true;
+            }
+        });
+
+        // close the video and prevent from opening again on scrolling + pause the video
+        closeVideoBtn.addEventListener('click', function () {
+            videoContainer.classList.remove('popout-video--popout');
+            video.pause();
+            popOut = false;
+        });
+
+        window.addEventListener('resize', function () {
+            videoHeight = videoContainer.offsetHeight;
+            introContainer.style.height = `${videoHeight}px`;
+        });
+    });
+</script>
+
+</html>

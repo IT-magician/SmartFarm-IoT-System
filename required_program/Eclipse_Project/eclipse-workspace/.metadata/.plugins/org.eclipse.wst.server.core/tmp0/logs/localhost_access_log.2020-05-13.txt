@@ -1,0 +1,10 @@
+127.0.0.1 - - [13/May/2020:11:10:11 +0900] "GET / HTTP/1.1" 404 750
+0:0:0:0:0:0:0:1 - - [13/May/2020:11:10:12 +0900] "GET /webtest/servlet/Server HTTP/1.1" 404 780
+186.226.238.16 - - [13/May/2020:11:10:15 +0900] "GET / HTTP/1.1" 400 843
+0:0:0:0:0:0:0:1 - - [13/May/2020:11:10:20 +0900] "GET /Video-Streaming-Server/test/output.mp4 HTTP/1.1" 404 796
+0:0:0:0:0:0:0:1 - - [13/May/2020:11:11:36 +0900] "GET /Video-Streaming-Server/test/output.mp4 HTTP/1.1" 404 796
+0:0:0:0:0:0:0:1 - - [13/May/2020:11:12:13 +0900] "GET /Video-Streaming-Server/test/output.mp4 HTTP/1.1" 404 796
+0:0:0:0:0:0:0:1 - - [13/May/2020:11:12:15 +0900] "GET /Video-Streaming-Server/test/output.mp4 HTTP/1.1" 404 796
+0:0:0:0:0:0:0:1 - - [13/May/2020:11:12:15 +0900] "GET /Video-Streaming-Server/test/output.mp4 HTTP/1.1" 404 796
+0:0:0:0:0:0:0:1 - - [13/May/2020:11:12:17 +0900] "GET /Video-Streaming-Server/test/output.mp4 HTTP/1.1" 404 796
+0:0:0:0:0:0:0:1 - - [13/May/2020:11:12:20 +0900] "GET /Video-Streaming-Server/test/osutput.mp4 HTTP/1.1" 404 797

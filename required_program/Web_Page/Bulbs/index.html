@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Farm Bulbs Control</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/websocket_common_part.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="btn" id="1">
+            <span>전구 Line 1</span>
+            <div class="dot" id="Dot1"></div>
+        </div>
+        <div class="btn" id="2">
+            <span>전구 Line 2</span>
+            <div class="dot" id="Dot2"></div>
+        </div>
+        <div class="btn" id="3">
+            <span>전구 Line 3</span>
+            <div class="dot" id="Dot3"></div>
+        </div>
+        <div class="btn" id="4">
+            <span>전구 Line 4</span>
+            <div class="dot" id="Dot4"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="btn hot" id="11">
+            <span>열전구 Line 1</span>
+            <div class="dot" id="Dot11"></div>
+        </div>
+        <div class="btn hot" id="12">
+            <span>열전구 Line 2</span>
+            <div class="dot" id="Dot12"></div>
+        </div>
+        <div class="btn hot" id="13">
+            <span>열전구 Line 3</span>
+            <div class="dot" id="Dot13"></div>
+        </div>
+    </div>
+
+</body>
+<script>
+    var WebSocket_Buffer1 = new Uint8Array(2);
+    var timerID;
+    onConnect_CallbackFunction = function () {
+        timerID = setInterval(function () {
+            ws.send("Current Status");
+        }, Interval_Check_Time);
+    }
+    onStringMessage_CallbackFunction = function () {
+        //alert(onStringMessage);
+    }
+    onClose_CallbackFunction = function() {
+        clearInterval(timerID);
+        //alert("타이머를 종료합니다");
+    }
+    $(document).ready(function () {
+        //if (!isWebSocketConnected) {
+            WebSocket_Connect_for_position();
+        //}
+
+        $(".btn").on("click", function () {
+
+            var id_tag = "#Dot" + $(this).attr('id');
+            if(!(id_tag == "#Dot1" || id_tag == "#Dot11")){
+                alert("교수님의 지시로 1개의 전구 또는 열전구만 제어할 수 있습니다.");
+                return;
+            }
+            console.log(id_tag);
+
+            WebSocket_Buffer = new Uint8Array(3);
+            WebSocket_Buffer[0] = 1;
+            if (!isChecked("#Dot" + $(this).attr('id'))) {
+                switch ($(this).attr('id')) {
+                    case "1":
+                        WebSocket_Buffer[1] = 0x01;
+                        WebSocket_Buffer[2] = 0x01;
+                        break;
+                    case "2":
+                        WebSocket_Buffer[1] = 0x02;
+                        WebSocket_Buffer[2] = 0x01;
+                        break;
+                    case "3":
+                        WebSocket_Buffer[1] = 0x04;
+                        WebSocket_Buffer[2] = 0x01;
+                        break;
+                    case "4":
+                        WebSocket_Buffer[1] = 0x08;
+                        WebSocket_Buffer[2] = 0x01;
+                        break;
+                    case "11":
+                        WebSocket_Buffer[1] = 0x10;
+                        WebSocket_Buffer[2] = 0x01;
+                        break;
+                    case "12":
+                        WebSocket_Buffer[1] = 0x20;
+                        WebSocket_Buffer[2] = 0x01;
+                        break;
+                    case "13":
+                        WebSocket_Buffer[1] = 0x40;
+                        WebSocket_Buffer[2] = 0x01;
+                        break;
+
+                }
+            }
+            else {
+                switch ($(this).attr('id')) {
+                    case "1":
+                        WebSocket_Buffer[1] = 0x01;
+                        WebSocket_Buffer[2] = 0x00;
+                        break;
+                    case "2":
+                        WebSocket_Buffer[1] = 0x02;
+                        WebSocket_Buffer[2] = 0x00;
+                        break;
+                    case "3":
+                        WebSocket_Buffer[1] = 0x04;
+                        WebSocket_Buffer[2] = 0x00;
+                        break;
+                    case "4":
+                        WebSocket_Buffer[1] = 0x08;
+                        WebSocket_Buffer[2] = 0x00;
+                        break;
+                    case "11":
+                        WebSocket_Buffer[1] = 0x10;
+                        WebSocket_Buffer[2] = 0x00;
+                        break;
+                    case "12":
+                        WebSocket_Buffer[1] = 0x20;
+                        WebSocket_Buffer[2] = 0x00;
+                        break;
+                    case "13":
+                        WebSocket_Buffer[1] = 0x40;
+                        WebSocket_Buffer[2] = 0x00;
+                        break;
+
+                }
+            }
+
+            ws.send(WebSocket_Buffer);
+        });
+    });
+    reader.addEventListener("loadend", function (e) {
+        // if the server sent binary array. (function : Websocket_onMessage(e))
+        var recvBuf = new Uint8Array(e.srcElement.result); //console.log(recvBuf.length);
+
+        if (recvBuf[0] == 0) {
+            var CurrentLEDValue = recvBuf[1];
+            recvBuf = new Uint8Array(2);
+            recvBuf[0] = 1; // Set LED Code
+            recvBuf[1] = CurrentLEDValue;
+
+            //console.log("'Code : 0' 메세지가 수신되었습니다.")
+        }
+
+        switch (recvBuf[0]) {
+            case 1: // LED
+
+                if (recvBuf[1] & 0x01)
+                    RunAnimation("#Dot1");
+                else
+                    StopAnimation("#Dot1")
+
+                if (recvBuf[1] & 0x02)
+                    RunAnimation("#Dot2");
+                else
+                    StopAnimation("#Dot2")
+
+                if (recvBuf[1] & 0x04)
+                    RunAnimation("#Dot3");
+                else
+                    StopAnimation("#Dot3")
+
+                if (recvBuf[1] & 0x08)
+                    RunAnimation("#Dot4");
+                else
+                    StopAnimation("#Dot4")
+
+                if (recvBuf[1] & 0x10)
+                    RunAnimation("#Dot11");
+                else
+                    StopAnimation("#Dot11")
+
+                if (recvBuf[1] & 0x20)
+                    RunAnimation("#Dot12");
+                else
+                    StopAnimation("#Dot12")
+
+                if (recvBuf[1] & 0x40)
+                    RunAnimation("#Dot13");
+                else
+                    StopAnimation("#Dot13")
+                break;
+        }
+
+    });
+
+    function RunAnimation(target_TAG) {
+        $(target_TAG).css('animation', 'atom 2s infinite linear').css('display', 'block');
+    }
+    function StopAnimation(target_TAG) {
+        $(target_TAG).css('animation', '').css('display', '');
+    }
+    function isChecked(target_TAG) {//console.log("isChecked함수 - id : " + target_TAG);
+        if ($(target_TAG).css('animation').indexOf("2s linear 0s infinite") > -1)
+            return true;
+        else
+            return false;
+    }
+</script>
+
+</html>

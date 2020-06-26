@@ -1,0 +1,18 @@
+#define BUBL1 4
+#define BUBL2 17
+#define BUBL3 27
+#define BUBL4 22
+
+#define HOT_BUBL1 5
+#define HOT_BUBL2 6
+#define HOT_BUBL3 13
+
+#define PDLC_PIN 19
+
+#define WATER_PUMP_FB_SIGNAL 26
+#define WATER_PUMP_PWM 18
+
+#define DOORLOC_MOTOR_FB_SIGNAL 23
+#define DOORLOC_MOTOR_PWM 24
+#define DOORLOC_CHECK_OPEN_SW 25
+#define DOORLOC_CHECK_CLOSE_SW 12

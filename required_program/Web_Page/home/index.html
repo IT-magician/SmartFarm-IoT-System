@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/home/home.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <tag autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="/websocket_common_part.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!--<link rel="stylesheet" href="/Resource/fontawesome/css/all.css"> this enabled when it can't access fontawesome web site-->
+
+  <!--<script src="/home/home.js" charset="utf-8" type="text/javascript"></script>-->
+</head>
+
+<body>
+  <text id="lux">Lux : -1 lx</text>
+  <form class="frame">
+    <div class="container">
+      <div class="content power" id="temp-controller">
+        <i class="fas fa-temperature-high"></i>
+        <span>온도 조절</span>
+      </div>
+      <div class="rainbow" id="led_power">
+        <div class="content" id="LED">
+          <i class="fas fa-lightbulb"></i>
+          <span>LED 제어</span>
+        </div>
+      </div>
+      <div class="rainbow" id="spray_power">
+        <div class="content" id="spray">
+          <i class="fas fa-shower"></i>
+          <span>스프링쿨러 제어</span>
+        </div>
+      </div>
+      <div class="rainbow" id="roof_power">
+        <div class="content" id="roof">
+          <i class="fas fa-moon" id="iTag_roof"></i>
+          <span>천장형 커튼 On/Off 제어</span>
+        </div>
+      </div>
+      <br>
+      <div class="content" id="live">
+        <i class="fas fa-video" aria-hidden="true"></i>
+        <span>live</span>
+      </div>
+      <div class="content" id="video">
+        <i class="fab fa-mixcloud" aria-hidden="true"></i>
+        <span>Cloud CCTV</span>
+      </div>
+      <div class="content" id="humidity">
+        <i class="fas fa-tint"></i>
+        <span>습도 조절</span>
+      </div>
+      <div class="rainbow" id="door_motor_power">
+        <div class="content" id="doorLock">
+          <i class="fas fa-door-open"></i>
+          <span>도어락 제어</span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script>
+    var WebSocket_Buffer1 = new Uint8Array(2);
+    var timerID;
+    onConnect_CallbackFunction = function () {
+      timerID = setInterval(function () {
+        ws.send("Current Status");
+      }, Interval_Check_Time);
+    }
+    var prev_Lux = -1;
+    var isWaterValid, tempC, humidity, Lux;
+    onStringMessage_CallbackFunction = function () {
+      //alert(onStringMessage);
+      var splitData = onStringMessage.split(",");
+      
+      isWaterValid = parseFloat(splitData[0].split(":")[1]);
+      tempC = Math.round(parseFloat(splitData[1].split(":")[1]) * 100) / 100;
+      humidity = Math.round(parseFloat(splitData[2].split(":")[1]) * 100) / 100;
+      Lux = Math.round(parseFloat(splitData[3].split(":")[1]) * 100) / 100;
+
+      if(prev_Lux != Lux){
+        prev_Lux = Lux;
+        $("#lux").text("Lux : " + Lux + " lx");
+      }
+    }
+    onClose_CallbackFunction = function () {
+      clearInterval(timerID);
+      //alert("타이머를 종료합니다");
+    }
+    $(document).ready(function () {
+      $('#temp-controller').click(function () {
+        location.href = "/temperature";
+      });
+      $('#LED').click(function () {
+        location.href = "/Bulbs";
+      });
+      $('#spray').click(function () {
+        location.href = "/Water";
+      });
+      $('#live').click(function () {
+        location.href = "/live";
+      });
+      $('#video').click(function () {
+        location.href = "/video";
+      });
+      $('#doorLock').click(function () {
+        location.href = "/doorLock";
+      });
+      $('#humidity').click(function () {
+        location.href = "/humidity";
+      });
+      $('#roof').click(function () {
+        location.href = "/roof";
+      });
+      //if (!isWebSocketConnected) {
+      WebSocket_Connect_for_position();
+      //}
+
+      $("#led_power").addClass('stopAnimation'); // CSS(::before접근자) 애니메이션 중지
+      $("#roof_power").addClass('stopAnimation'); // CSS(::before접근자) 애니메이션 중지
+      $("#spray_power").addClass('stopAnimation'); // CSS(::before접근자) 애니메이션 중지
+      $("#door_motor_power").addClass('stopAnimation'); // CSS(::before접근자) 애니메이션 중지
+    });
+    var is_led_power = -1, is_roof_power = -1, is_spray_power = -1, is_door_motor_power = -1;
+    reader.addEventListener("loadend", function (e) {
+      // if the server sent binary array. (function : Websocket_onMessage(e))
+      var recvBuf = new Uint8Array(e.srcElement.result);
+
+      if (recvBuf[0] == 0) {
+        if (is_led_power != recvBuf[1]) {
+          if (recvBuf[1] > 0) {
+            $("#led_power").removeClass('stopAnimation'); // CSS(::before접근자) 애니메이션 재개
+            is_led_power = recvBuf[1];
+          }
+          else {
+            is_led_power = recvBuf[1];
+            $("#led_power").addClass('stopAnimation'); // CSS(::before접근자) 애니메이션 중지
+          }
+        }
+
+        if (is_roof_power != recvBuf[2]) {
+          if (recvBuf[2] > 0) {
+            $("#roof_power").removeClass('stopAnimation'); // CSS(::before접근자) 애니메이션 재개
+            is_roof_power = recvBuf[2];
+          }
+          else {
+            $("#roof_power").addClass('stopAnimation'); // CSS(::before접근자) 애니메이션 중지
+
+            is_roof_power = recvBuf[2];
+          }
+        }
+
+        if (is_spray_power != recvBuf[3]) {
+          if (recvBuf[3] > 0) {
+            $("#spray_power").removeClass('stopAnimation'); // CSS(::before접근자) 애니메이션 재개
+            is_spray_power = recvBuf[3];
+          }
+          else {
+            $("#spray_power").addClass('stopAnimation'); // CSS(::before접근자) 애니메이션 중지
+            is_spray_power = recvBuf[3];
+          }
+        }
+
+        if (is_door_motor_power != recvBuf[5]) {console.log(recvBuf[5])
+          if (recvBuf[5] > 0) {
+            $("#door_motor_power").removeClass('stopAnimation'); // CSS(::before접근자) 애니메이션 재개
+            is_door_motor_power = recvBuf[5];
+          }
+          else {
+            $("#door_motor_power").addClass('stopAnimation'); // CSS(::before접근자) 애니메이션 중지
+            is_door_motor_power = recvBuf[5];
+          }
+        }
+
+      }
+
+    });
+  </script>
+</body>
+
+</html>

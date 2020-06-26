@@ -1,0 +1,164 @@
+<!DOCTYPE html lang="kr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Smart Farm Humidity</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/websocket_common_part.js" charset="utf-8"></script>
+    <!--https://jqueryui.com/download/all/-->
+    <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1/jquery-ui.min.css" />
+    <script src="Circle.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div id="dialog" title="습도 설정하기">
+        설정할 습도 입력<br>
+        <input type="number" step="1" min="0" max="100" id="percentValue" onkeydown="numkeyCheck(event)">
+    </div>
+    <div class="container">
+        <div class="content">
+            <span class="tooltiptext">클릭하면 습도 설정값을 입력하는 창이 나옵니다.</span>
+            <div class="single-chart" id="orangeBox">
+                <svg viewBox="0 0 36 36" class="circular-chart orange">
+                    <path class="circle-bg" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle" stroke-dasharray="30, 100" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text x="18" y="20.35" class="percentage" id="orange" oncopy="return false" oncut="return false"
+                        onpaste="return false">30%</text>
+                    <div for="toggle1" class="text" id="text1" tooltip="습도 설정"> </div>
+                </svg>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="single-chart" id="greenBox">
+                <svg viewBox="0 0 36 36" class="circular-chart green">
+                    <path class="circle-bg" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle" stroke-dasharray="60, 100" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text x="18" y="20.35" class="percentage" id="green">60%</text>
+                </svg>
+                <div for="toggle1" class="text" id="text1" tooltip="현재 습도"> </div>
+            </div>
+        </div>
+
+        <!--<div class="single-chart" id="blueBox">
+            <svg viewBox="0 0 36 36" class="circular-chart blue">
+                <path class="circle-bg" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="circle" id="circleBox" stroke-dasharray="100, 100" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <text x="18" y="20.35" class="percentage" id="blue">100%</text>
+            </svg>
+        </div>-->
+    </div>
+    <script>
+        var WebSocket_Buffer1 = new Uint8Array(2);
+        var timerID;
+        onConnect_CallbackFunction = function () {
+            timerID = setInterval(function () {
+                ws.send("Current Status");
+            }, Interval_Check_Time);
+        }
+        var isWaterValid, tempC, humidity, Lux, prev_humidity = -1;
+        onStringMessage_CallbackFunction = function () {
+            //alert(onStringMessage);
+            var splitData = onStringMessage.split(",");
+
+            isWaterValid = parseFloat(splitData[0].split(":")[1]);
+            tempC = Math.round(parseFloat(splitData[1].split(":")[1]));
+            humidity = Math.round(parseFloat(splitData[2].split(":")[1]));
+            Lux = Math.round(parseFloat(splitData[3].split(":")[1]) * 100) / 100;
+
+            if (prev_humidity != humidity) {
+                prev_humidity = humidity;
+                setCirclePercentage("green", humidity);// 0 ~ 100 %
+            }
+
+        }
+        onClose_CallbackFunction = function () {
+            clearInterval(timerID);
+            //alert("타이머를 종료합니다");
+        }
+        $(document).ready(function () {
+            var radius = 75;
+            var PI = Math.PI;
+            var PI2 = PI * 2;
+
+            // ******************************************************   Click Event   ******************************************************
+
+            $('#orangeBox').click(function (e) { //Default mouse Position
+                $('#percentValue').val($('#orangeBox').text().replace(/[^0-9]/g, ""));
+                $("#dialog").dialog("open"); //다이얼로그창 오픈
+            });
+
+
+
+            $(function () {
+                //$("#dialog").dialog();
+                $("#dialog").dialog({
+                    draggable: false, //창 드래그 못하게
+                    autoOpen: false, //자동으로 열리지않게
+                    position: [$('#orangeBox').offset().left + $('#orangeBox').width() / 2
+                        , $('#orangeBox').offset().top + $('#orangeBox').height() / 2], //x,y  값을 지정
+                    //"center", "left", "right", "top", "bottom"
+                    modal: true, //모달대화상자
+                    resizable: false, //크기 조절 못하게
+
+                    buttons: {
+                        "확인": function () {
+                            setCirclePercentage("orange", $('#percentValue').val());
+                            $(this).dialog("close");
+                        }, "취소": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+            });
+
+            // ****************************************************** Set Random Value ******************************************************
+            setCirclePercentage("orange", 80);// 0 ~ 100 %
+
+
+
+            setCirclePercentage("green", prev_humidity);// 0 ~ 100 %
+
+            //if (!isWebSocketConnected) {
+            WebSocket_Connect_for_position();
+            //}
+        });
+        reader.addEventListener("loadend", function (e) {
+            // if the server sent binary array. (function : Websocket_onMessage(e))
+            var recvBuf = new Uint8Array(e.srcElement.result); //console.log(recvBuf.length);
+
+            if (recvBuf[0] == 0) {
+                var CurrentLEDValue = recvBuf[1];
+                recvBuf = new Uint8Array(2);
+                recvBuf[0] = 1; // Set LED Code
+                recvBuf[1] = CurrentLEDValue;
+
+                //console.log("'Code : 0' 메세지가 수신되었습니다.")
+            }
+
+            switch (recvBuf[0]) {
+                case 1: // LED
+            }
+
+        });
+    </script>
+</body>
+
+</html>

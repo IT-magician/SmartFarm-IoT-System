@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DoorLockSystem</class>
+ <widget class="QWidget" name="DoorLockSystem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1082</width>
+    <height>583</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Door Lock System</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: black;</string>
+  </property>
+  <widget class="QPushButton" name="pushButton_1">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>190</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_1&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_1&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_1&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_1&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>190</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_2&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_2&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_2&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_2&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>2</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>190</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_3&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_3&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_3&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_3&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>3</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_4">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>280</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_4&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_4&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_4&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_4&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>4</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_5">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>280</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_5&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_5&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_5&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_5&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>5</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_6">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>280</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_6&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_6&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_6&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_6&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>6</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_7">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>370</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_7&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_7&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_7&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_7&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>7</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_8">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>370</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_8&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_8&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_8&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_8&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>8</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_9">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>370</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_9&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_9&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_9&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_9&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>9</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_19">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>460</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_19&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_19&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_19&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_19&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>*</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_20">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>460</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_20&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_20&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_20&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_20&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_21">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>460</y>
+     <width>111</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Constantia</family>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton[objectName^=&quot;pushButton_21&quot;] {
+  border: 1px solid skyblue;
+  background-color: rgba(0,0,0,0);
+  color: skyblue;
+  padding: 5px;
+}
+
+QPushButton[objectName^=&quot;pushButton_21&quot;]:disabled{
+  color: #b5d9e8;
+}
+
+QPushButton[objectName^=&quot;pushButton_21&quot;]:hover{
+
+}
+
+QPushButton[objectName^=&quot;pushButton_21&quot;]:pressed{
+color:#fff;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>#</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>170</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>80</y>
+     <width>421</width>
+     <height>451</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: skyblue;</string>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LCD_Display">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>70</y>
+     <width>371</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: white;
+border-top: 1px dotted white;
+border-bottom: 1px dotted white;
+text-align:center;
+font: 40px;</string>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:40pt; font-weight:600;text-align:center;&quot;&gt;TextLabel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

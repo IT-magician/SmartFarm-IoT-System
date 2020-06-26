@@ -1,0 +1,158 @@
+body{
+  background-image: url('humidity.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*Text를 드래그 하지 못하게 막기 - Label처럼 사용하게 만들기*/
+text{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+  
+  
+  .single-chart {
+    width: 33%;
+    justify-content: space-around ;
+  }
+  
+  .circular-chart {
+    display: block;
+    margin: 10px auto;
+    max-width: 80%;
+    max-height: 250px;
+  }
+  
+  .circle-bg {
+    fill: none;
+    stroke: #eee;
+    stroke-width: 3.8;
+  }
+  
+  .circle {
+    fill: none;
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+  }
+  
+  @keyframes progress {
+    0% {
+      stroke-dasharray: 0 100;
+    }
+  }
+  
+  .circular-chart.orange .circle {
+    stroke: #ff9f00;
+  }
+  
+  .circular-chart.green .circle {
+    stroke: #4CC790;
+  }
+  
+  .circular-chart.blue .circle {
+    stroke: #3c9ee5;
+  }
+  
+  .percentage {
+    fill: #07367d;
+    font-family: sans-serif;
+    font-size: 0.5em;
+    text-anchor: middle;
+  }
+
+
+
+
+  
+.container{
+  width: 100%;
+  top: 50%;
+  text-align: center;
+}
+.content{
+  width: 620px;
+  height: 720px;
+  display: inline-block;
+  /*background: #3498db;*/
+  /*border-bottom: 3px solid #3498db;*/
+  margin: 10px;
+  color: #fff;
+  position: relative;
+  
+  transform: translate(30%,30%);
+}
+.content .tooltiptext {
+  visibility: hidden;
+  width: 190px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 0%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+/* Tooltip arrow */
+.content .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.content:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.single-chart{
+  transform: scale(3);
+}
+#text1:before{
+    position:absolute;
+    transform: translate(-50%,100%);
+    content:attr(tooltip);
+    color: #07367d;
+    width: 100px;
+
+    
+  border-bottom: 2px solid #3498db;
+  }
+  @media screen and (max-width: 768px) {
+    /* 모바일에 사용될 스트일 시트를 여기에 작성합니다. */
+    .content{
+      width: 220px;
+      height: 520px;
+      transform: translateY(-175px);
+    }
+  
+  .single-chart{
+    transform: scale(5) translateX(15px) translateY(55px);
+  }
+  #text1:before{
+      position:absolute;
+      transform: translateX(-25px) translateY(0px);
+      content:attr(tooltip);
+      color: #07367d;
+      font-size: 10px;
+      width: 50px;
+      border-bottom: 1px #3c9ee5 solid;
+    }
+  }

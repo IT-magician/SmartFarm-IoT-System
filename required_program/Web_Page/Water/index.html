@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Farm Water Spray Control</title>
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="/websocket_common_part.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div class="container">
+    <div class="content">
+
+      <svg version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px"
+        style="display: none;">
+        <symbol id="wave">
+          <path
+            d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z">
+          </path>
+          <path
+            d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z">
+          </path>
+          <path
+            d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z">
+          </path>
+          <path
+            d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z">
+          </path>
+        </symbol>
+      </svg>
+      <div class="water-jar">
+        <div class="water-filling">
+          <div class="percentNum" id="count">0</div>
+          <div class="percentB">%</div>
+        </div>
+        <div id="water" class="water">
+          <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
+            <use xlink:href="#wave"></use>
+          </svg>
+          <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
+            <use xlink:href="#wave"></use>
+          </svg>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="content">
+
+      <div class="SW-container">
+        <h3>Water Spray</h3>
+        <div class="checkbox-container yellow">
+          <input type="checkbox" id="toggle" onclick="checkbox_manager(event)" />
+          <label for="toggle"></label>
+          <div class="active-circle"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- partial -->
+  <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+  <script src="./script.js"></script>
+  <script>
+    var WebSocket_Buffer1 = new Uint8Array(2);
+    var timerID;
+    onConnect_CallbackFunction = function () {
+      timerID = setInterval(function () {
+        ws.send("Current Status");
+      }, Interval_Check_Time);
+    }
+    var isWaterValid, tempC, humidity, Lux;
+    onStringMessage_CallbackFunction = function () {
+      //alert(onStringMessage);
+      var splitData = onStringMessage.split(",");
+
+      isWaterValid = parseFloat(splitData[0].split(":")[1]);
+      tempC = Math.round(parseFloat(splitData[1].split(":")[1]) * 100) / 100;
+      humidity = Math.round(parseFloat(splitData[2].split(":")[1]) * 100) / 100;
+      Lux = Math.round(parseFloat(splitData[3].split(":")[1]) * 100) / 100;
+
+      if (prev_isWaterValid != isWaterValid) {
+        prev_isWaterValid = isWaterValid;
+        if (isWaterValid) {
+          setWaterDisplayFullOrEmpty(true);
+        }
+        else {
+          setWaterDisplayFullOrEmpty(false);
+        }
+      }
+    }
+    onClose_CallbackFunction = function () {
+      clearInterval(timerID);
+      //alert("타이머를 종료합니다");
+    }
+    $(document).ready(function () {
+      //setWaterDisplay(50);
+      setWaterDisplayFullOrEmpty(false);
+      //if (!isWebSocketConnected) {
+      WebSocket_Connect_for_position();
+      //}
+
+    });
+    var isWaterValid;
+    reader.addEventListener("loadend", function (e) {
+      // if the server sent binary array. (function : Websocket_onMessage(e))
+      var recvBuf = new Uint8Array(e.srcElement.result); //console.log(recvBuf);
+
+      if (recvBuf[0] == 0) {
+        var CurrentWaterPumpStatus = recvBuf[3];
+        isWaterValid = recvBuf[4];
+        recvBuf = new Uint8Array(3);
+        recvBuf[0] = 3; // Set Water Pump Code
+        recvBuf[1] = CurrentWaterPumpStatus;
+        recvBuf[2] = isWaterValid;
+        if (isWaterValid == 1)
+          setWaterDisplayFullOrEmpty(true);
+        else
+          setWaterDisplayFullOrEmpty(false);
+
+        //console.log("'Code : 0' 메세지가 수신되었습니다.")
+      }
+
+      switch (recvBuf[0]) {
+        case 3: // WaterPump
+          if (recvBuf[1]) {
+            $("#toggle").prop("checked", true);
+          }
+          else {
+            $("#toggle").prop("checked", false);
+          }
+      }
+
+    });
+
+    function checkbox_manager(event) {
+      recvBuf = new Uint8Array(2);
+      recvBuf[0] = 3;
+      if ($("#toggle").is(":checked")) { // close the wire of pdlc line
+        if (isWaterValid == 0)
+          alert("물이 없습니다.");
+        $("#toggle").prop("checked", false);
+        recvBuf[1] = 1;
+      }
+      else { // open the wire of pdlc line
+        $("#toggle").prop("checked", true);
+        recvBuf[1] = 0;
+      }
+      if (isWaterValid > 0)
+        ws.send(recvBuf);
+    }
+  </script>
+
+</body>
+
+</html>

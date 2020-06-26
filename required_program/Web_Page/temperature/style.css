@@ -1,0 +1,102 @@
+body {
+ background-color: #FCEFD6;
+ text-align:center;
+ justify-content: center;
+}
+body,
+html {
+ height: 100%;
+ width: 100%;
+ margin: 0;
+ padding: 0;
+}
+svg {
+ 
+ width: 100%;
+ height: 100%;
+ transform: scale(1.5);
+}
+
+.label{
+ fill:#FFFCF9;
+ font-size:1.8em;
+ font-family: "din-condensed-web", sans-serif;
+ /* font-family: "filson-soft", sans-serif; */
+ text-anchor:middle;
+ letter-spacing:1.2px;
+}
+
+
+ .tubeLabel{
+ fill:#FCEFD6;
+ font-size:1.4em;
+ font-family: "din-condensed-web", sans-serif;
+ /* font-family: "filson-soft", sans-serif; */
+ text-anchor:middle;
+}
+.dragger{
+ -webkit-tap-highlight-color:transparent;
+}
+
+.label1{
+ fill:#FFFCF9;
+ font-size:1.8em;
+ font-family: "din-condensed-web", sans-serif;
+ /* font-family: "filson-soft", sans-serif; */
+ text-anchor:middle;
+ letter-spacing:1.2px;
+}
+
+
+ .tubeLabel1{
+ fill:#FCEFD6;
+ font-size:1.4em;
+ font-family: "din-condensed-web", sans-serif;
+ /* font-family: "filson-soft", sans-serif; */
+ text-anchor:middle;
+}
+.dragger1{
+ -webkit-tap-highlight-color:transparent;
+}
+
+
+
+.container{
+    width: 100%;
+    top: 50%;
+    text-align: center;
+  }
+  .content{
+    width: 420px;
+    height: 420px;
+    display: inline-block;
+    background: #3498db;
+    margin: 10px;
+    color: #fff;
+    position: relative;
+    border-bottom: 3px solid #3498db;
+  }
+
+
+.label_name{
+  margin: 0;
+  top: 1000000;
+  color: rgb(53, 53, 53);
+  font-size:2.0em;
+  border-top: 2px solid #79bbe7;
+  border-bottom: 2px solid #79bbe7;
+  
+}
+
+@media screen and (max-width: 768px) {
+  /* 모바일에 사용될 스트일 시트를 여기에 작성합니다. */
+  .content{
+    width: 220px;
+    height: 220px;
+    background: #3498db;
+  }
+  
+  .label_name{
+    font-size:1.0em;
+  }
+}

@@ -1,0 +1,221 @@
+<%@Language="VBScript" CODEPAGE="65001" %>
+<%
+ 
+  Response.CharSet="utf-8"
+  Session.codepage="65001"
+  Response.codepage="65001"
+  Response.ContentType="text/html;charset=utf-8"
+%>
+
+<%
+    dim fname
+    dim FileName
+    dim videoSRC
+
+    FileName=Request.QueryString("attribute1")
+    If FileName = "" Then
+        'FileName = Date() & "mp4" 'YYYY-MM-DD''
+        FileName = "Live Stream"
+    Else
+        videoSRC = "http://220.69.244.50:8080/Video_Streaming_Server/" & FileName
+        'Response.Write videoSRC'
+    End If
+
+    Set fs = Server.CreateObject("Scripting.FileSystemObject")
+    Set folderObj = fs.GetFolder(Server.MapPath("/videos"))
+    Set subfolder = folderObj.SubFolders
+%>
+
+
+<!DOCTYPE html>
+<html lang="kr">
+
+<!-- src : https://codepen.io/creme/pen/jOOZgEO -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Farm Cloud CCTV</title>
+    <link href="https://vjs.zencdn.net/7.7.6/video-js.css" rel="stylesheet" />
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="intro">
+        <div class="popout-video">
+            <%
+            If FileName = "Live Stream" Then
+                Response.Write  "<video class=""intro-video"" id=""my-video"" class=""video-js"" controls preload=""auto"" autoplay=""true"" muted=""true"" width=""640"" height=""264"" data-setup=""{}"">" & "<source type=""application/x-mpegURL"" src=""http://220.69.244.50:5000/hls/test.m3u8"">" & "</video>"
+            Else
+                Response.Write "<video src=""" & videoSRC & """ playsinline controls class=""intro-video"" preload=""auto"" type=""video/mp4"" autoplay></video>"
+            End If
+            %>
+            <div class="popout-video__controls">
+                <div class="close-video"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <span>scroll down</span>
+        <hr>
+        <h1>Video Record History</h1>
+
+
+        <ul id="compositions-list" class="pure-tree main-tree">
+            <li>
+                <input type="checkbox" id="live" checked="checked" onclick="location.href='/live';">
+                <label for="live">Live</label>
+
+                <input type="checkbox" id="trigger-views" checked="checked">
+                <label for="trigger-views">views</label>
+                <ul class="pure-tree">
+                    <li>
+                        <%
+                            Dim DayOfWeek
+                            Select Case WeekDay(Now())
+                                case 1:
+                                    DayOfWeek = "Sunday"
+                                case 2:
+                                    DayOfWeek = "Monday"
+                                case 3:
+                                    DayOfWeek = "Tuesday"
+                                case 4:
+                                    DayOfWeek = "Wednesday"
+                                case 5:
+                                    DayOfWeek = "Thursday"
+                                case 6:
+                                    DayOfWeek = "Friday"
+                                case 7:
+                                        DayOfWeek = "Saturday"
+                            End select
+
+                            
+                            For Each folder in subfolder
+
+                                If folder.name <> "test" Then
+                                    Count = Count + 1
+                                    
+                                    If Count < subfolder.count - 1 then
+                                        Response.Write "<input type=""checkbox"" id=""trigger-" & Count & """>"
+                                    Else
+                                        Response.Write "<input type=""checkbox"" id=""trigger-" & Count & """ checked=""checked"">"
+                                    End If
+                                    Response.Write "<label for=""trigger-" & Count & """>" & folder.name & "</label>"
+                                    Response.Write "<ul class=""pure-tree"">"
+
+                                    Set folderObj = fs.GetFolder(folder.Path)
+                                    Set files = folderObj.Files 
+                                    
+                                    
+                                    For Each file in files
+                                        If file.name <> "HLS_Record(" & Year(Now()) & "년_" & Month(Now()) & "월_" & Day(Now()) & "일_" & DayOfWeek & ").mp4" Then
+                                                Response.Write "<li class=""pure-tree_link""><a onclick=""submit('" & folder.name & "/" & file.name & "')"" title=""index.jade"" target=""_blank"">" & file.name & "</a></li>"
+                                        End If
+                                    Next
+                                    
+                                    Response.Write "</ul>"
+                                End If
+                                
+                            Next
+                        %>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</body>
+<script src="https://vjs.zencdn.net/7.7.6/video.js"></script>
+<script>
+    $(window).ready(function () {
+        <%
+        If FileName = "Live Stream" Then
+            // HTTPS로프로토콜 HTTP 변경
+            Response.Write  "if (document.location.protocol == 'https:') { document.location.href = document.location.href.replace('https:', 'http:'); } $("".vjs-big-play-button"").trigger(""click""); //$('html').animate({scrollTop : offset.top}, 400); if($(window).width() < 787) //  for mobile {  var nowPosition = $(window).scrollTop(); $(window).animate($(window).height());  $(window).animate(nowPosition);  } var player = videojs('video-js', { liveui: true });"
+
+        End If
+        %>
+    });
+
+
+
+        function submit(fileName) {
+            var strPageName = window.location.href.split("/");
+            strPageName = strPageName[strPageName.length-1].split("?")[0];
+
+            var form = document.createElement("form");
+            form.setAttribute("charset", "UTF-8");
+            form.setAttribute("method", "Get");  //GET 방식
+            form.setAttribute("action", strPageName); //요청 보낼 주소
+
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "attribute1");
+            hiddenField.setAttribute("value", fileName);
+            form.appendChild(hiddenField);
+
+            /*hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "attribute2");
+            hiddenField.setAttribute("value", "value2");
+            form.appendChild(hiddenField);*/
+
+
+
+            document.body.appendChild(form);
+            form.submit();
+
+            //alert("Submitted");
+        }
+
+    console.clear();
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const introContainer = document.querySelector('.intro');
+        const videoContainer = introContainer.querySelector('.popout-video');
+        const video = videoContainer.querySelector('video');
+        let videoHeight = videoContainer.offsetHeight;
+
+        const closeVideoBtn = document.querySelector('.close-video');
+
+        let popOut = true;
+
+        introContainer.style.height = `${videoHeight}px`;
+
+        window.addEventListener('scroll', function (e) {
+            if (window.scrollY > videoHeight) {
+                // only pop out the video if it wasnt closed before
+                if (popOut) {
+                    videoContainer.classList.add('popout-video--popout');
+                    // set video container off the screen for the slide in animation
+                    videoContainer.style.top = `-${videoHeight}px`;
+                }
+            } else {
+                videoContainer.classList.remove('popout-video--popout');
+                videoContainer.style.top = `0px`;
+                popOut = true;
+            }
+        });
+
+        // close the video and prevent from opening again on scrolling + pause the video
+        closeVideoBtn.addEventListener('click', function () {
+            videoContainer.classList.remove('popout-video--popout');
+            video.pause();
+            popOut = false;
+        });
+
+        window.addEventListener('resize', function () {
+            videoHeight = videoContainer.offsetHeight;
+            introContainer.style.height = `${videoHeight}px`;
+        });
+    });
+</script>
+
+</html>

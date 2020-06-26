@@ -1,0 +1,149 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "montserrat",sans-serif;
+    min-height: 100vh;
+    background-image: linear-gradient(120deg,#2980b9,#27ae60);
+  }
+  /*Text를 드래그 하지 못하게 막기 - Label처럼 사용하게 만들기*/
+  text{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  #lux{
+    position: fixed;
+    top: 0px;
+    margin: 0px;
+    font-size: 30px;
+    color: #293a4b;
+    /*Text를 드래그 하지 못하게 막기 - Label처럼 사용하게 만들기*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .container{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-40%);
+    text-align: center;
+  }
+  .content{
+    width: 220px;
+    height: 140px;
+    display: inline-block;
+    background: #3498db;
+    margin: 10px;
+    color: #fff;
+    position: relative;
+    cursor: pointer;
+
+    margin: 10px;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+  .content i{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    line-height: 140px;
+    background: #34495e;
+    z-index: 1;
+    transition: transform 0.6s;
+  }
+  .content span{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding: 10px 0;
+  }
+  
+  .content:hover i{
+    transform: translateY(-40px);
+  }
+  
+  @-webkit-keyframes rotate {
+    100% {
+      -webkit-transform: rotate(1turn);
+              transform: rotate(1turn);
+    }
+  }
+  
+  @keyframes rotate {
+    100% {
+      -webkit-transform: rotate(1turn);
+              transform: rotate(1turn);
+    }
+  }
+
+  .rainbow {
+    position: relative;
+    z-index: 0;
+    width: 230px;
+    height: 150px;
+    display: inline-block;
+    border-radius: 10px;
+    overflow: hidden;
+
+    margin: 5px;
+  }
+  .rainbow::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: #399953;
+    background-repeat: no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#399953), to(#399953)), -webkit-gradient(linear, left top, left bottom, from(#fbb300), to(#fbb300)), -webkit-gradient(linear, left top, left bottom, from(#d53e33), to(#d53e33)), -webkit-gradient(linear, left top, left bottom, from(#377af5), to(#377af5));
+    background-image: linear-gradient(#399953, #399953), linear-gradient(#fbb300, #fbb300), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+    -webkit-animation: rotate 4s linear infinite;
+            animation: rotate 4s linear infinite;
+  }
+  .rainbow.stopAnimation::before {
+    animation-play-state: paused;
+    background-image: none;
+    background-color: transparent;
+  }
+  .rainbow::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 6px;
+    top: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    background: white;
+    border-radius: 5px;
+  }
+
+
+  
+  @media screen and (max-width:800px){
+    body{
+      min-height: 250vh;
+      background-image: linear-gradient(120deg,#2980b9,#27ae60);
+    }
+    /*.rainbow{
+      top: 450px;
+    }*/
+    .container{
+      top: 650px;
+    }
+    @media screen and (max-width:360px){
+      
+    }
+  }
