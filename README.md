@@ -42,7 +42,7 @@
    24(BCM - NAME : PWM)				                    ===      MDD10A_PWM_PIN1, MDD10A_PWM_PIN2  
    25(BCM - NAME : SWITCH FOR OPEN  DETECTION)	  ===      SWITCH_ONE_OF_OUT_SIDE(LIMITED SWITCH)  
    12(BCM - NAME : SWITCH FOR CLOSE DETECTION)	  ===      SWITCH_ONE_OF_OUT_SIDE(LIMITED SWITCH)  
-   ![Switch Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/door_sw_pin.jpg)   
+   ![Switch Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/blob/master/QT_Project/door_sw_pin.jpg)   
 
 ### For Water Pump
    26(BCM - NAME : PWM)				                    ===     MD10C_PWM_PIN  
@@ -56,14 +56,14 @@
 ### Sketch(.ino)
 [See Source Code](https://github.com/jangsungLee/SmartFarm-IoT-System/blob/master/Water_TEMPERATURE_HUMIDITY/Water_TEMPERATURE_HUMIDITY.ino)  
 ### Non Contact Water Sensor Connection
-![Non Contact Water Sensor Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/FIT0212_Connection(Non-Contact%20Water-Level%20Sensor).png?raw=true)  
+![Non Contact Water Sensor Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/FIT0212_Connection(Non-Contact%20Water-Level%20Sensor).png?raw=true)  
 ### SHT1x(Temperature and Humidity Sensor) Connection  
 A2    ===   SDA  
 A3    ===   SCL  
 아래 그림은 이해를 돕기 위한 그림이며, SDA와 SCL의 위치가 좀 다름  
-![SHT1x Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/SHT1X%20Connection.png?raw=true)  
+![SHT1x Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/SHT1X%20Connection.png?raw=true)  
 ### Brightness Sensor  
 A4    ===   SDA  
 A5    ===   SCL  
 
-![DFRobot_VEML7700 Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/SEN0228_Arduino_Connection.png?raw=true)  
+![DFRobot_VEML7700 Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/SEN0228_Arduino_Connection.png?raw=true)  
