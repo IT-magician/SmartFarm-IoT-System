@@ -14,8 +14,8 @@ RPI IP Teller(mediator) : (I'm going to post a link later)
 RPI GUI Program(Main System and Web Application Server) : (I'm going to post a link later)  
 Demo Video : (I'm going to post a link later)  
 Camera Streaming Server : "[OBS Studio](https://obsproject.com/ko/download  "OBS Studio link")" and "[ngnix](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/nginx-rtmp  "ngnix link")" ("OBS Studio" --> "ngnix" --> Web Page)  
-[HLS Recoder(C# Source Code - Visual Studio Project)](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/HLS_RECODER)   
-![obs_studio setting capture](https://github.com/jangsungLee/SmartFarm-IoT-System/blob/master/obs_studio%20setting%20capture.PNG?raw=true)  
+[HLS Recoder(C# Source Code - Visual Studio Project)](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/Visual%20Studio%20Project/HLS_TO_MP4)   
+![obs_studio setting capture](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/obs_studio%20setting%20capture.PNG?raw=true)  
   
   
 ## RPI with hardware device(relay, motor driver) ###
@@ -38,7 +38,7 @@ Camera Streaming Server : "[OBS Studio](https://obsproject.com/ko/download  "OBS
    24(BCM - NAME : PWM)				                    ===      MDD10A_PWM_PIN1, MDD10A_PWM_PIN2  
    25(BCM - NAME : SWITCH FOR OPEN  DETECTION)	  ===      SWITCH_ONE_OF_OUT_SIDE(LIMITED SWITCH)  
    12(BCM - NAME : SWITCH FOR CLOSE DETECTION)	  ===      SWITCH_ONE_OF_OUT_SIDE(LIMITED SWITCH)  
-   ![Switch Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/door_sw_pin.jpg)   
+   ![Switch Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/door_sw_pin.jpg.jpg){: width="50%" height="50%"} 
 
 ### For Water Pump
    26(BCM - NAME : PWM)				                    ===     MD10C_PWM_PIN  
