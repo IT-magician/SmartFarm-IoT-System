@@ -19,8 +19,8 @@ The Internet site is only open for a short time. so, if you want to try this, yo
 ## Programs that must be executed ##
 Reference Document : [Reference Document](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/required_program/%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EC%B9%B4%EB%A9%94%EB%9D%BC%20%EA%B4%80%EB%A0%A8%20%EC%84%A4%EC%A0%95%EB%B2%95.docx   "Programs")  
 IIS : Need to be able to run classic asp on html page. [web page](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/Web_Page  "Web Page Download link")  
-RPI IP Teller(mediator) : (I'm going to post a link later)  
-RPI GUI Program(Main System and Web Application Server) : (I'm going to post a link later)  
+RPI IP Teller(mediator) : [folder](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/Mediator(RPI%20Position%20Teller)   "download folder"
+[RPI GUI Program(Main System and Web Application Server)](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/doorLock_System   "download")  
 Demo Video : https://blog.naver.com/hoan123432/222005532952  
 Camera Streaming Server : "[OBS Studio](https://obsproject.com/ko/download  "OBS Studio link")" and "[ngnix](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/nginx-rtmp  "ngnix link")" ("OBS Studio" --> "ngnix" --> Web Page)  
 [HLS Recoder(C# Source Code - Visual Studio Project)](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/Visual%20Studio%20Project/HLS_TO_MP4)   
