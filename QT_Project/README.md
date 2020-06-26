@@ -5,15 +5,15 @@ This Program is made when i have to make my graduation work.
 This can control BULB(Like : normal BULB(LED), Hot Bulb), Water Pump, Door Open/Close, PDLC ACTIVE/DISACTIVE remotely as well as on-site.  
 When you want to control at on-site, you just have to input "*###*.  
 then, you can show the control panel which can control the devices.  
-Also, When you want to control via the Internet, you just have to access "http://www.anudev.cf".  
+Also, When you want to control via the Internet, you just have to access "http://iot.anudev.cf".  
 The Internet site is only open for a short time. so, if you want to try this, you have to do that Modifying the IP part of JavaScript and c++ documents and building through qmake are required.  
 (In the case of JavaScript, there is no need to build, and only c++ documents need to be built in qmake to create an executable file.)  
 ## Programs that must be executed ##
-IIS : Need to be able to run classic asp on html page. [web page](https://google.com  "Web Page Download link")  
+IIS : Need to be able to run classic asp on html page. [web page](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/Web_Page  "Web Page Download link")  
 RPI IP Teller(mediator) : (I'm going to post a link later)  
 RPI GUI Program(Main System and Web Application Server) : (I'm going to post a link later)  
 Demo Video : (I'm going to post a link later)  
-Camera Streaming Server : "[OBS Studio](https://obsproject.com/ko/download  "OBS Studio link")" and "[ngnix](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/nginx-rtmp/nginx-rtmp.zip  "ngnix link")" ("OBS Studio" --> "ngnix" --> Web Page)  
+Camera Streaming Server : "[OBS Studio](https://obsproject.com/ko/download  "OBS Studio link")" and "[ngnix](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/nginx-rtmp  "ngnix link")" ("OBS Studio" --> "ngnix" --> Web Page)  
 [HLS Recoder(C# Source Code - Visual Studio Project)](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/HLS_RECODER)   
 ![obs_studio setting capture](https://github.com/jangsungLee/SmartFarm-IoT-System/blob/master/obs_studio%20setting%20capture.PNG?raw=true)  
   
@@ -48,16 +48,16 @@ Camera Streaming Server : "[OBS Studio](https://obsproject.com/ko/download  "OBS
 ### Sketch(.ino)
 [See Source Code](https://github.com/jangsungLee/SmartFarm-IoT-System/blob/master/Water_TEMPERATURE_HUMIDITY/Water_TEMPERATURE_HUMIDITY.ino)  
 ### Non Contact Water Sensor Connection
-![Non Contact Water Sensor Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/FIT0212_Connection(Non-Contact%20Water-Level%20Sensor).png?raw=true)  
+![Non Contact Water Sensor Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/FIT0212_Connection(Non-Contact%20Water-Level%20Sensor).png?raw=true)  
 ### SHT1x(Temperature and Humidity Sensor) Connection  
 A2    ===   SDA  
 A3    ===   SCL  
-![SHT1x Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/SHT1X%20Connection.png?raw=true)  
+![SHT1x Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/SHT1X%20Connection.png?raw=true)  
 ### Brightness Sensor  
 A4    ===   SDA  
 A5    ===   SCL  
 
-![DFRobot_VEML7700 Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/SEN0228_Arduino_Connection.png?raw=true)  
+![DFRobot_VEML7700 Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/SEN0228_Arduino_Connection.png?raw=true)  
 
 
 
