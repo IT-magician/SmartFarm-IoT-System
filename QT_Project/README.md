@@ -5,6 +5,9 @@
 initial step : qmake && sudo make  
 after initial step : sudo make clean && sudo make  
   
+## Windows  
+windeployqt --release --qmldir --dir "실행파일이 있는 폴더경로"
+  
 # Note #
 This Program is made when i have to make my graduation work.  
 This can control BULB(Like : normal BULB(LED), Hot Bulb), Water Pump, Door Open/Close, PDLC ACTIVE/DISACTIVE remotely as well as on-site.  
@@ -17,7 +20,7 @@ The Internet site is only open for a short time. so, if you want to try this, yo
 IIS : Need to be able to run classic asp on html page. [web page](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/Web_Page  "Web Page Download link")  
 RPI IP Teller(mediator) : (I'm going to post a link later)  
 RPI GUI Program(Main System and Web Application Server) : (I'm going to post a link later)  
-Demo Video : (I'm going to post a link later)  
+Demo Video : https://blog.naver.com/hoan123432/222005532952  
 Camera Streaming Server : "[OBS Studio](https://obsproject.com/ko/download  "OBS Studio link")" and "[ngnix](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/nginx-rtmp  "ngnix link")" ("OBS Studio" --> "ngnix" --> Web Page)  
 [HLS Recoder(C# Source Code - Visual Studio Project)](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/Visual%20Studio%20Project/HLS_TO_MP4)   
 ![obs_studio setting capture](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/obs_studio%20setting%20capture.PNG?raw=true)  
