@@ -17,6 +17,7 @@ Also, When you want to control via the Internet, you just have to access "http:/
 The Internet site is only open for a short time. so, if you want to try this, you have to do that Modifying the IP part of JavaScript and c++ documents and building through qmake are required.  
 (In the case of JavaScript, there is no need to build, and only c++ documents need to be built in qmake to create an executable file.)  
 ## Programs that must be executed ##
+Reference Document : [Reference Document](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/required_program/%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EC%B9%B4%EB%A9%94%EB%9D%BC%20%EA%B4%80%EB%A0%A8%20%EC%84%A4%EC%A0%95%EB%B2%95.docx   "Programs")  
 IIS : Need to be able to run classic asp on html page. [web page](https://github.com/jangsungLee/SmartFarm-IoT-System/tree/master/required_program/Web_Page  "Web Page Download link")  
 RPI IP Teller(mediator) : (I'm going to post a link later)  
 RPI GUI Program(Main System and Web Application Server) : (I'm going to post a link later)  
