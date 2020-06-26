@@ -38,7 +38,7 @@ Camera Streaming Server : "[OBS Studio](https://obsproject.com/ko/download  "OBS
    24(BCM - NAME : PWM)				                    ===      MDD10A_PWM_PIN1, MDD10A_PWM_PIN2  
    25(BCM - NAME : SWITCH FOR OPEN  DETECTION)	  ===      SWITCH_ONE_OF_OUT_SIDE(LIMITED SWITCH)  
    12(BCM - NAME : SWITCH FOR CLOSE DETECTION)	  ===      SWITCH_ONE_OF_OUT_SIDE(LIMITED SWITCH)  
-   ![Switch Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/door_sw_pin.jpg.jpg){: width="50%" height="50%"} 
+   ![Switch Connection](https://github.com/jangsungLee/SmartFarm-IoT-System/raw/master/QT_Project/door_sw_pin.jpg){: width="50%" height="50%"} 
 
 ### For Water Pump
    26(BCM - NAME : PWM)				                    ===     MD10C_PWM_PIN  
