@@ -1,5 +1,10 @@
 # SmartFarm-IoT-System-
   
+# Build  
+## Raspberry Pi  
+initial step : qmake && sudo make  
+after initial step : sudo make clean && sudo make  
+  
 # Note #
 This Program is made when i have to make my graduation work.  
 This can control BULB(Like : normal BULB(LED), Hot Bulb), Water Pump, Door Open/Close, PDLC ACTIVE/DISACTIVE remotely as well as on-site.  
